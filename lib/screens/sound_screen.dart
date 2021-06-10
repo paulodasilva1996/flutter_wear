@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
-import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 
 const img = 'assets/images/';
 
 class PlayRoute extends StatefulWidget {
   final String sound;
-  const PlayRoute({Key key, this.sound}) : super(key: key);
+  const PlayRoute({Key? key, required this.sound}) : super(key: key);
   @override
   _PlayRouteState createState() => _PlayRouteState();
 }
 
 class _PlayRouteState extends State<PlayRoute> {
-  AudioPlayer player;
-  AudioCache cache;
+  late AudioPlayer player;
+  late AudioCache cache;
   bool initialPlay = true;
-  bool playing;
+  bool playing = false;
 
   @override
   initState() {
@@ -115,13 +114,13 @@ class _PlayRouteState extends State<PlayRoute> {
 
 class Background extends StatefulWidget {
   final String sound;
-  const Background({Key key, this.sound}) : super(key: key);
+  const Background({Key? key, required this.sound}) : super(key: key);
   @override
   _BackgroundState createState() => _BackgroundState();
 }
 
 class _BackgroundState extends State<Background> {
-  Timer timer;
+  late Timer timer;
   bool _visible = false;
 
   @override

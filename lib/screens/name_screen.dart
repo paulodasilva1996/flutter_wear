@@ -13,11 +13,10 @@ class NameScreen extends StatelessWidget {
     return AmbientMode(
       builder: (context, mode) => mode == Mode.active
           ? NameScreenUI(screenHeight, screenWidth)
-          : AmbientWatchFace(),
+          : AmbientWatchFace()
     );
   }
 }
-
 class NameScreenUI extends StatelessWidget {
   final screenHeight;
   final screenWidth;

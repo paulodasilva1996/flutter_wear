@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
-import 'package:meta/meta.dart';
 
 const MethodChannel _channel = const MethodChannel('wear');
 
@@ -21,14 +20,12 @@ enum Mode { active, ambient }
 
 /// An inherited widget that holds the shape of the Watch
 class InheritedShape extends InheritedWidget {
-  const InheritedShape({Key key, @required this.shape, @required Widget child})
-      : assert(shape != null),
-        assert(child != null),
-        super(key: key, child: child);
+  const InheritedShape({Key? key, required this.shape, required Widget child})
+      : super(key: key, child: child);
 
   final Shape shape;
 
-  static InheritedShape of(BuildContext context) {
+  static InheritedShape? of(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<InheritedShape>();
   }
 
@@ -44,9 +41,8 @@ typedef Widget WatchShapeBuilder(
 
 /// Builder widget for watch shapes
 class WatchShape extends StatefulWidget {
-  WatchShape({Key key, @required this.builder})
-      : assert(builder != null),
-        super(key: key);
+  WatchShape({Key? key, required this.builder})
+      : super(key: key);
   final WatchShapeBuilder builder;
 
   @override
@@ -54,7 +50,7 @@ class WatchShape extends StatefulWidget {
 }
 
 class _WatchShapeState extends State<WatchShape> {
-  Shape shape;
+  late Shape shape;
 
   @override
   initState() {
@@ -98,11 +94,10 @@ typedef Widget AmbientModeWidgetBuilder(
 /// called every time the watch triggers an ambient update request. If an update
 /// function is passed in, this widget will not perform an update itself.
 class AmbientMode extends StatefulWidget {
-  AmbientMode({Key key, @required this.builder, this.update})
-      : assert(builder != null),
-        super(key: key);
+  AmbientMode({Key? key, required this.builder, this.update})
+      : super(key: key);
   final AmbientModeWidgetBuilder builder;
-  final Function update;
+  final Function()? update ;
 
   @override
   createState() => _AmbientModeState();
@@ -121,15 +116,19 @@ class _AmbientModeState extends State<AmbientMode> {
           setState(() => ambientMode = Mode.ambient);
           break;
         case 'update':
-          if (widget.update != null)
-            widget.update();
-          else
+          if (widget.update != null) {
+            widget.update!();
+          } else {
             setState(() => ambientMode = Mode.ambient);
+          }
           break;
         case 'exit':
           setState(() => ambientMode = Mode.active);
           break;
       }
+      throw {
+
+      };
     });
   }
 

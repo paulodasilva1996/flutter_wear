@@ -19,7 +19,6 @@ class RelaxView extends StatelessWidget {
     );
   }
 }
-
 class HomeRoute extends StatelessWidget {
   soundBtn(sound, context) {
     return GestureDetector(
